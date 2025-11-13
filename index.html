@@ -1,11 +1,31 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>عضو انجمن</title>
+  <meta charset="utf-8">
+  <title>کارت عضویت</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- No inline scripts, no frameworks -->
 </head>
 <body>
-  <div id="app">در حال بارگذاری...</div>
-  <script src="app.js"></script>
+  <main id="app" aria-live="polite">
+    <div id="status">درحال بارگذاری ...</div>
+
+    <section id="card" hidden>
+      <h1 id="name"></h1>
+      <div id="meta">
+        <p><strong>ID:</strong> <span id="id"></span></p>
+        <p><strong>Role:</strong> <span id="role"></span></p>
+      </div>
+      <div id="activities-wrap">
+        <h2>Activities</h2>
+        <ul id="activities"></ul>
+      </div>
+    </section>
+
+    <section id="error" hidden></section>
+  </main>
+
+  <script src="./app.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,32 @@
 [
-  {"id": "m001","name": "غلامعلی کفاشان","role": "هیئت مدیره","bio": "مسئول روابط عمومی و تولید محتوا","activities": ["کارگاه پایتون","مسابقه CTF"]},
-  {"id": "m002","name": "باران قائدپوری","role": "عضو انجمن","bio": "فعال در کمیته اولید محتوا ، نشریه و تحقیقات.","activities": ["طراحی کارت عضویت"]}
+  {
+    "id": "m001",
+    "name": "Sara Ahmadi",
+    "role": "Member",
+    "activities": [
+      "Monthly meetup attendee",
+      "Volunteer coordinator",
+      "Newsletter contributor"
+    ]
+  },
+  {
+    "id": "m002",
+    "name": "Reza Hosseini",
+    "role": "Organizer",
+    "activities": [
+      "Event planning",
+      "Sponsorship outreach",
+      "Workshop facilitator"
+    ]
+  },
+  {
+    "id": "m003",
+    "name": "Leila Farzan",
+    "role": "Moderator",
+    "activities": [
+      "Community moderation",
+      "Forum Q&A",
+      "Onboarding support"
+    ]
+  }
 ]
