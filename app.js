@@ -62,7 +62,7 @@
   // Check required DOM ids and warn if missing
   var required = [
     'loading', 'error', 'card', 'name', 'full_name', 'student_id',
-    'member_id', 'role', 'committees_list', 'activities_list', 'certificates_list', 'debugInfo'
+    'member_id', 'role_list', 'committees_list', 'activities_list', 'certificates_list', 'debugInfo'
   ];
   required.forEach(function (id) { if (!exists(id)) console.warn('Expected element not found in DOM:', id); });
 
@@ -135,12 +135,13 @@
 
         // role field variants
         var roleVal = found.role || found.position || found.title || '';
-        setText('role', roleVal);
+        setText('role_list', roleVal);
 
         // Render lists safely
         renderArray('committees_list'.replace('_list','_container'), 'committees_list', found.committees || found.committee || found.committees_list || [], 'عضویتی ثبت نشده');
         renderArray('activities_list'.replace('_list','_container'), 'activities_list', found.activities || found.activity || [], 'هیچ فعالیتی ثبت نشده');
         renderArray('certificates_list'.replace('_list','_container'), 'certificates_list', found.certificates || found.certificate || [], 'مدرکی ثبت نشده');
+		renderArray('role_list'.replace('_list','_container'), 'role_list', found.role || found.role || [], 'سمتی ثبت نشده');
 
         // Ensure card visible: also clear any CSS hiding
         var card = el('card');
