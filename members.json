@@ -1,32 +1,20 @@
 [
   {
     "id": "m001",
-    "name": "Sara Ahmadi",
-    "role": "Member",
-    "activities": [
-      "Monthly meetup attendee",
-      "Volunteer coordinator",
-      "Newsletter contributor"
-    ]
+    "name": "Alice Johnson",
+    "role": "Administrator",
+    "activities": ["Manage users", "Review reports", "Approve budgets"]
   },
   {
     "id": "m002",
-    "name": "Reza Hosseini",
-    "role": "Organizer",
-    "activities": [
-      "Event planning",
-      "Sponsorship outreach",
-      "Workshop facilitator"
-    ]
+    "name": "Bob Smith",
+    "role": "Member",
+    "activities": ["Attend meetings", "Submit feedback"]
   },
   {
     "id": "m003",
-    "name": "Leila Farzan",
-    "role": "Moderator",
-    "activities": [
-      "Community moderation",
-      "Forum Q&A",
-      "Onboarding support"
-    ]
+    "name": "Carol Lee",
+    "role": "Guest",
+    "activities": ["View dashboard"]
   }
 ]

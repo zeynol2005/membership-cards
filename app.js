@@ -1,104 +1,51 @@
-// app.js
 (function () {
-  'use strict';
-
-  const statusEl = document.getElementById('status');
-  const cardEl = document.getElementById('card');
-  const errorEl = document.getElementById('error');
-
-  const nameEl = document.getElementById('name');
-  const idEl = document.getElementById('id');
-  const roleEl = document.getElementById('role');
-  const activitiesEl = document.getElementById('activities');
-
-  function showError(message) {
-    if (statusEl) statusEl.hidden = true;
-    errorEl.textContent = message;
-    errorEl.hidden = false;
-    cardEl.hidden = true;
+  function getQueryParam(key) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(key);
   }
 
-  function showCard(member) {
-    nameEl.textContent = member.name || '';
-    idEl.textContent = member.id || '';
-    roleEl.textContent = member.role || '';
-
-    // Clear and render activities safely
-    activitiesEl.textContent = '';
-    const list = Array.isArray(member.activities) ? member.activities : [];
-    list.forEach(item => {
+  function showMember(member) {
+    document.getElementById('name').textContent = member.name;
+    document.getElementById('id').textContent = member.id;
+    document.getElementById('role').textContent = member.role;
+    const activitiesList = document.getElementById('activities');
+    activitiesList.innerHTML = '';
+    member.activities.forEach(activity => {
       const li = document.createElement('li');
-      li.textContent = String(item);
-      activitiesEl.appendChild(li);
+      li.textContent = activity;
+      activitiesList.appendChild(li);
     });
-
-    if (statusEl) statusEl.hidden = true;
-    errorEl.hidden = true;
-    cardEl.hidden = false;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('card').style.display = 'block';
   }
 
-  function getQueryId() {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
-      return id && id.trim() ? id.trim() : null;
-    } catch {
-      return null;
-    }
+  function showError() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'block';
   }
 
-  async function load() {
-    const memberId = getQueryId();
-    if (!memberId) {
-      showError('Missing member id. Use ?id=YOUR_ID in the URL.');
-      return;
-    }
-
-    let resp;
-    try {
-      resp = await fetch('./members.json', {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        cache: 'no-cache'
-      });
-    } catch {
-      showError('Unable to load members.json. Please try again later.');
-      return;
-    }
-
-    if (!resp || !resp.ok) {
-      showError('members.json not found or failed to load.');
-      return;
-    }
-
-    const ct = resp.headers.get('Content-Type') || '';
-    if (!ct.toLowerCase().includes('application/json')) {
-      showError('Invalid response type for members.json.');
-      return;
-    }
-
-    let data;
-    try {
-      data = await resp.json();
-    } catch {
-      showError('Failed to parse members.json. Ensure it is valid JSON.');
-      return;
-    }
-
-    if (!Array.isArray(data)) {
-      showError('members.json must be a JSON array.');
-      return;
-    }
-
-    const member = data.find(m => m && typeof m === 'object' && String(m.id) === memberId);
-    if (!member) {
-      showError(No member found for id: ${memberId});
-      return;
-    }
-
-    showCard(member);
+  const memberId = getQueryParam('id');
+  if (!memberId) {
+    showError();
+    return;
   }
 
-  // Start
-  load();
+  fetch('./members.json')
+    .then(response => {
+      if (!response.ok || !response.headers.get('content-type').includes('application/json')) {
+        throw new Error('Invalid JSON response');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const member = data.find(m => m.id === memberId);
+      if (member) {
+        showMember(member);
+      } else {
+        showError();
+      }
+    })
+    .catch(() => {
+      showError();
+    });
 })();

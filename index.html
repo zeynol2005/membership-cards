@@ -1,31 +1,21 @@
-<!-- index.html -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>کارت عضویت</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- No inline scripts, no frameworks -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership Card</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main id="app" aria-live="polite">
-    <div id="status">درحال بارگذاری ...</div>
-
-    <section id="card" hidden>
-      <h1 id="name"></h1>
-      <div id="meta">
-        <p><strong>ID:</strong> <span id="id"></span></p>
-        <p><strong>Role:</strong> <span id="role"></span></p>
-      </div>
-      <div id="activities-wrap">
-        <h2>Activities</h2>
-        <ul id="activities"></ul>
-      </div>
-    </section>
-
-    <section id="error" hidden></section>
-  </main>
-
-  <script src="./app.js" defer></script>
+  <div id="loading">Loading member data...</div>
+  <div id="card" style="display:none;">
+    <h2 id="name"></h2>
+    <p><strong>ID:</strong> <span id="id"></span></p>
+    <p><strong>Role:</strong> <span id="role"></span></p>
+    <p><strong>Activities:</strong></p>
+    <ul id="activities"></ul>
+  </div>
+  <div id="error" style="display:none; color:red;">Member not found.</div>
+  <script src="app.js"></script>
 </body>
 </html>
