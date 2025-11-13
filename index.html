@@ -14,13 +14,13 @@
     #error{color:#b00020;text-align:center;padding:12px 0;display:none}
     #card{display:none}
     h2#name{margin:0 0 10px 0;font-size:20px;text-align:center}
-    .row{margin:8px 0;color:#333;display:flex;justify-content:flex-start;gap:8px;align-items:flex-start}
+    .row{margin:8px 0;color:#333;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
     .label{font-weight:700;color:#222;white-space:nowrap}
     .value{flex:1;text-align:right;word-break:break-word}
     ul{margin:6px 0 0 0;padding-right:18px;list-style-type:disc;color:#333}
     ul li{margin:6px 0;line-height:1.4;word-break:break-word}
     ul.empty{color:#777;font-style:italic;list-style-type:none;padding:0;margin:0}
-    .debug {font-size:12px;color:#666;margin-top:8px}
+    .debug{font-size:12px;color:#666;margin-top:8px}
     @media (max-width:420px){.wrap{padding:12px}.org-title{font-size:16px}h2#name{font-size:18px}.label{font-size:14px}}
   </style>
 </head>
@@ -34,24 +34,24 @@
     <div id="card" aria-live="polite">
       <h2 id="name" aria-label="member-name"></h2>
 
-      <div class="row"><div class="label">نام و نام خانوادگی :</div><div id="fullName" class="value"></div></div>
-      <div class="row"><div class="label">شماره دانشجویی :</div><div id="studentId" class="value"></div></div>
+      <div class="row"><div class="label">نام و نام خانوادگی :</div><div id="full_name" class="value"></div></div>
+      <div class="row"><div class="label">شماره دانشجویی :</div><div id="student_id" class="value"></div></div>
       <div class="row"><div class="label">شناسه :</div><div id="id" class="value"></div></div>
       <div class="row"><div class="label">سمت در انجمن :</div><div id="role" class="value"></div></div>
 
       <div class="row">
         <div class="label">کمیته‌های عضو شده :</div>
-        <div id="committees_container" class="value"><ul id="committees_list"></ul></div>
+        <div class="value"><ul id="committees_list"></ul></div>
       </div>
 
       <div class="row">
         <div class="label">فعالیت‌ها :</div>
-        <div id="activities_container" class="value"><ul id="activities_list"></ul></div>
+        <div class="value"><ul id="activities_list"></ul></div>
       </div>
 
       <div class="row">
         <div class="label">مدارک کسب کرده :</div>
-        <div id="certificates_container" class="value"><ul id="certificates_list"></ul></div>
+        <div class="value"><ul id="certificates_list"></ul></div>
       </div>
 
       <div id="debugInfo" class="debug" aria-hidden="true" style="display:none"></div>
