@@ -6,12 +6,12 @@
   function safeText(id, txt){
     var n = el(id);
     if (n) n.textContent = txt;
-    else console.warn('Missing element:', id, 'text:', txt);
+    else console.warn('element not found:', id, 'text:', txt);
   }
 
-  function getQ(idName){
+  function getQueryId(){
     var p = new URLSearchParams(window.location.search);
-    var v = p.get(idName);
+    var v = p.get('id');
     return v === null ? null : String(v).trim();
   }
 
@@ -58,7 +58,7 @@
 
   function normalize(s){ return s === null || s === undefined ? '' : String(s).trim(); }
 
-  function matches(candidate, query){
+  function idMatches(candidate, query){
     if (!candidate || !query) return false;
     var c = normalize(candidate).toLowerCase();
     var q = normalize(query).toLowerCase();
@@ -68,17 +68,16 @@
     return false;
   }
 
-  // ensure required UI parts exist (log missing)
+  // check required elements
   ['loading','error','card','name','studentId','id','role','committees','activities','certificates'].forEach(function(k){
     if (!el(k)) console.warn('Expected element not found in DOM:', k);
   });
 
-  // initial UI state
   show('loading', true);
   show('card', false);
   show('error', false);
 
-  var qid = getQ('id');
+  var qid = getQueryId();
   if (!qid){
     show('loading', false);
     show('error', true);
@@ -95,7 +94,6 @@
     })
     .then(function(data){
       if (!Array.isArray(data)) throw new Error('members.json باید آرایه باشد');
-      // build quick lookup maps
       var byId = Object.create(null);
       var byStudent = Object.create(null);
       for (var i = 0; i < data.length; i++){
@@ -112,7 +110,7 @@
         for (var j = 0; j < data.length; j++){
           var cand = data[j];
           if (!cand) continue;
-          if (matches(cand.id, qid) || matches(cand.student_id, qid)){
+          if (idMatches(cand.id, qid) || idMatches(cand.student_id, qid)){
             found = cand;
             break;
           }
