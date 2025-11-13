@@ -5,28 +5,73 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Membership Card</title>
   <style>
-    :root { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #111; background:#f6f7fb; }
-    body { margin: 0; min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
-    .wrap { width:100%; max-width:520px; background:#fff; border-radius:12px; box-shadow:0 6px 22px rgba(16,24,40,0.08); padding:22px; }
+    :root {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #111;
+      background: #f6f7fb;
+    }
+    html,body { height:100%; margin:0; }
+    body {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .wrap {
+      width:100%;
+      max-width:560px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 6px 22px rgba(16,24,40,0.08);
+      padding:22px;
+      box-sizing:border-box;
+      direction: rtl;
+    }
+
+    /* status */
     #loading { color:#3b3f46; text-align:center; font-weight:600; padding:18px 0; }
     #error { color:#b00020; text-align:center; padding:18px 0; display:none; }
+
+    /* card */
     #card { display:none; }
     h2 { margin:0 0 8px 0; font-size:20px; }
     p { margin:6px 0; color:#333; }
-    .label { font-weight:700; color:#222; }
-    ul { margin:8px 0 0 18px; padding:0; color:#333; }
+    .label { font-weight:700; color:#222; margin-left:6px; }
     .meta { margin-top:12px; font-size:14px; color:#555; }
+
+    /* activities list: robust for any count */
+    #activities {
+      margin:8px 0 0 18px;
+      padding:0;
+      list-style-type: disc;
+      color:#333;
+    }
+    #activities > li {
+      margin:6px 0;
+      line-height:1.4;
+      word-break:break-word;
+    }
+    #activities > li.empty {
+      color:#777;
+      font-style:italic;
+    }
+
+    /* small responsive tweak */
+    @media (max-width:420px){
+      .wrap { padding:16px; }
+      h2 { font-size:18px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap" role="main" aria-labelledby="title">
     <div id="loading">Loading member data...</div>
-    <div id="error">Member not found or data failed to load.</div>
+    <div id="error" role="status" aria-live="polite">Member not found or data failed to load.</div>
 
     <div id="card" aria-live="polite">
-      <h2 id="name"></h2>
-      <p><span class="label">ID:</span> <span id="id"></span></p>
-      <p><span class="label">Role:</span> <span id="role"></span></p>
+      <h2 id="name" aria-label="member-name"></h2>
+      <p><span class="label">ID:</span><span id="id"></span></p>
+      <p><span class="label">Role:</span><span id="role"></span></p>
       <div class="meta"><span class="label">Activities</span></div>
       <ul id="activities"></ul>
     </div>
