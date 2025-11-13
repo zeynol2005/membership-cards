@@ -1,33 +1,30 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const app = document.getElementById("app");
+document.addEventListener("DOMContentLoaded", async () => {
+  const content = document.getElementById("content");
+  content.innerText = "در حال بارگذاری...";
+
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("id");
 
-  if (!memberId) {
-    app.textContent = "هیچ عضو مشخص نشده است.";
-    return;
-  }
+  try {
+    const response = await fetch("members.json");
+    if (!response.ok) throw new Error("JSON not found");
+    const members = await response.json();
 
-  fetch("members.json")
-    .then(res => {
-      if (!res.ok) throw new Error("members.json load failed");
-      return res.json();
-    })
-    .then(data => {
-      const member = data.find(m => m.id.trim() === memberId.trim());
-      if (!member) {
-        app.textContent = "عضو پیدا نشد";
-        return;
-      }
-      app.innerHTML = 
-        <h1>${member.name}</h1>
-        <p>${member.role}</p>
-        <p>${member.bio || ""}</p>
-        <ul>${(member.activities || []).map(a => <li>${a}</li>).join("")}</ul>
-      ;
-    })
-    .catch(err => {
-      console.error(err);
-      app.textContent = "خطا در بارگذاری اطلاعات";
-    });
+    const member = members.find(m => m.id === memberId);
+    if (!member) {
+      content.innerText = "عضو مورد نظر یافت نشد.";
+      return;
+    }
+
+    content.innerHTML = 
+      <h2>${member.name}</h2>
+      <p><strong>نقش:</strong> ${member.role}</p>
+      <ul>
+        ${member.activities.map(a => <li>${a}</li>).join("")}
+      </ul>
+    ;
+  } catch (err) {
+    content.innerText = "خطا در بارگذاری اطلاعات.";
+    console.error(err);
+  }
 });
