@@ -1,21 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Membership Card</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #111; background:#f6f7fb; }
+    body { margin: 0; min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .wrap { width:100%; max-width:520px; background:#fff; border-radius:12px; box-shadow:0 6px 22px rgba(16,24,40,0.08); padding:22px; }
+    #loading { color:#3b3f46; text-align:center; font-weight:600; padding:18px 0; }
+    #error { color:#b00020; text-align:center; padding:18px 0; display:none; }
+    #card { display:none; }
+    h2 { margin:0 0 8px 0; font-size:20px; }
+    p { margin:6px 0; color:#333; }
+    .label { font-weight:700; color:#222; }
+    ul { margin:8px 0 0 18px; padding:0; color:#333; }
+    .meta { margin-top:12px; font-size:14px; color:#555; }
+  </style>
 </head>
 <body>
-  <div id="loading">Loading member data...</div>
-  <div id="card" style="display:none;">
-    <h2 id="name"></h2>
-    <p><strong>ID:</strong> <span id="id"></span></p>
-    <p><strong>Role:</strong> <span id="role"></span></p>
-    <p><strong>Activities:</strong></p>
-    <ul id="activities"></ul>
+  <div class="wrap">
+    <div id="loading">Loading member data...</div>
+    <div id="error">Member not found or data failed to load.</div>
+
+    <div id="card" aria-live="polite">
+      <h2 id="name"></h2>
+      <p><span class="label">ID:</span> <span id="id"></span></p>
+      <p><span class="label">Role:</span> <span id="role"></span></p>
+      <div class="meta"><span class="label">Activities</span></div>
+      <ul id="activities"></ul>
+    </div>
   </div>
-  <div id="error" style="display:none; color:red;">Member not found.</div>
+
   <script src="app.js"></script>
 </body>
 </html>
