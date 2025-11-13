@@ -8,13 +8,15 @@
     document.getElementById('name').textContent = member.name;
     document.getElementById('id').textContent = member.id;
     document.getElementById('role').textContent = member.role;
+
     const activitiesList = document.getElementById('activities');
     activitiesList.innerHTML = '';
-    member.activities.forEach(activity => {
+    member.activities.forEach(function (activity) {
       const li = document.createElement('li');
       li.textContent = activity;
       activitiesList.appendChild(li);
     });
+
     document.getElementById('loading').style.display = 'none';
     document.getElementById('card').style.display = 'block';
   }
@@ -31,21 +33,24 @@
   }
 
   fetch('./members.json')
-    .then(response => {
-      if (!response.ok || !response.headers.get('content-type').includes('application/json')) {
+    .then(function (response) {
+      const contentType = response.headers.get('content-type') || '';
+      if (!response.ok || !contentType.includes('application/json')) {
         throw new Error('Invalid JSON response');
       }
       return response.json();
     })
-    .then(data => {
-      const member = data.find(m => m.id === memberId);
+    .then(function (data) {
+      const member = data.find(function (m) {
+        return m.id === memberId;
+      });
       if (member) {
         showMember(member);
       } else {
         showError();
       }
     })
-    .catch(() => {
+    .catch(function () {
       showError();
     });
 })();
