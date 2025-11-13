@@ -1,20 +1,29 @@
 [
   {
     "id": "m001",
-    "name": "Alice Johnson",
-    "role": "Administrator",
-    "activities": ["Manage users", "Review reports", "Approve budgets"]
+    "student_id": "403270991",
+    "full_name": "علی رضایی",
+    "role": "دبیر انجمن",
+    "committees": ["کمیته علمی", "کمیته روابط عمومی"],
+    "activities": ["برگزاری نشست تخصصی", "ویرایش گزارش دوره‌ای", "همکاری در نمایشگاه"],
+    "certificates": ["مدرک مشارکت در همایش", "گواهی تدریس"]
   },
   {
     "id": "m002",
-    "name": "Bob Smith",
-    "role": "Member",
-    "activities": ["Attend meetings", "Submit feedback"]
+    "student_id": "00234567",
+    "full_name": "زهرا محمدی",
+    "role": "عضو هیئت مدیره",
+    "committees": ["کمیته اجرایی"],
+    "activities": ["تنظیم برنامهٔ آموزشی", "هماهنگی رویدادها"],
+    "certificates": ["گواهی مدیریت پروژه"]
   },
   {
     "id": "m003",
-    "name": "Carol Lee",
-    "role": "Guest",
-    "activities": ["View dashboard"]
+    "student_id": "00345678",
+    "full_name": "سارا حسینی",
+    "role": "عضو",
+    "committees": [],
+    "activities": ["حضور در جلسات", "شرکت در کارگاه"],
+    "certificates": []
   }
 ]
