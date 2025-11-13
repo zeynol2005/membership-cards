@@ -1,39 +1,36 @@
 (function () {
   'use strict';
 
-  // ایمن‌سازی دسترسی به المان‌ها: اگر موجود نبود، null برمی‌گرداند
-  function el(id) {
-    try { return document.getElementById(id); } catch (e) { return null; }
+  function el(id){ return document.getElementById(id); }
+
+  function safeText(id, txt){
+    var n = el(id);
+    if (n) n.textContent = txt;
+    else console.warn('Missing element:', id, 'text:', txt);
   }
 
-  function safeSetText(id, text) {
-    var node = el(id);
-    if (node) node.textContent = text;
-    else console.warn('عنصر پیدا نشد:', id, '— مقدار مورد نظر:', text);
-  }
-
-  function getQueryId() {
+  function getQ(idName){
     var p = new URLSearchParams(window.location.search);
-    var v = p.get('id');
+    var v = p.get(idName);
     return v === null ? null : String(v).trim();
   }
 
-  function show(id, visible) {
+  function show(id, on){
     var n = el(id);
-    if (!n) { console.warn('show(): عنصر پیدا نشد:', id); return; }
-    n.style.display = visible ? '' : 'none';
+    if (!n) return;
+    n.style.display = on ? '' : 'none';
   }
 
-  function clearChildren(node) {
+  function clearChildren(node){
     if (!node) return;
     while (node.firstChild) node.removeChild(node.firstChild);
   }
 
-  function renderList(nodeId, items, emptyText) {
+  function renderList(nodeId, arr, emptyText){
     var node = el(nodeId);
-    if (!node) { console.warn('renderList(): عنصر پیدا نشد:', nodeId); return; }
+    if (!node) { console.warn('renderList: missing', nodeId); return; }
     clearChildren(node);
-    if (!Array.isArray(items) || items.length === 0) {
+    if (!Array.isArray(arr) || arr.length === 0){
       var li = document.createElement('li');
       li.className = 'empty';
       li.textContent = emptyText || 'هیچ موردی ثبت نشده';
@@ -41,28 +38,27 @@
       return;
     }
     var frag = document.createDocumentFragment();
-    for (var i = 0; i < items.length; i++) {
+    for (var i = 0; i < arr.length; i++){
       var li = document.createElement('li');
-      li.textContent = String(items[i]);
+      li.textContent = String(arr[i]);
       frag.appendChild(li);
     }
     node.appendChild(frag);
   }
 
-  function renderMember(m) {
-    safeSetText('name', m.full_name || '');
-    safeSetText('studentId', m.student_id || '');
-    safeSetText('id', m.id || '');
-    safeSetText('role', m.role || '');
-
+  function renderMember(m){
+    safeText('name', m.full_name || '');
+    safeText('studentId', m.student_id || '');
+    safeText('id', m.id || '');
+    safeText('role', m.role || '');
     renderList('committees', m.committees, 'عضویتی ثبت نشده');
     renderList('activities', m.activities, 'هیچ فعالیتی ثبت نشده');
     renderList('certificates', m.certificates, 'مدرکی ثبت نشده');
   }
 
-  function normalize(s) { return s === null || s === undefined ? '' : String(s).trim(); }
+  function normalize(s){ return s === null || s === undefined ? '' : String(s).trim(); }
 
-  function idMatches(candidate, query) {
+  function matches(candidate, query){
     if (!candidate || !query) return false;
     var c = normalize(candidate).toLowerCase();
     var q = normalize(query).toLowerCase();
@@ -72,53 +68,51 @@
     return false;
   }
 
-  // اطمینان از وجود المان‌های پایه‌ای برای نمایش خطا/لودینگ
-  var required = ['loading', 'error', 'card'];
-  for (var ri = 0; ri < required.length; ri++) {
-    if (!el(required[ri])) console.warn('عنصر ضروری موجود نیست در index.html:', required[ri]);
-  }
+  // ensure required UI parts exist (log missing)
+  ['loading','error','card','name','studentId','id','role','committees','activities','certificates'].forEach(function(k){
+    if (!el(k)) console.warn('Expected element not found in DOM:', k);
+  });
 
-  // init UI
+  // initial UI state
   show('loading', true);
   show('card', false);
   show('error', false);
 
-  var memberId = getQueryId();
-  if (!memberId) {
+  var qid = getQ('id');
+  if (!qid){
     show('loading', false);
     show('error', true);
-    safeSetText('error', 'شناسه در URL موجود نیست. مثال: ?id=m001 یا ?id=403270991');
-    console.info('No id query param provided.');
+    safeText('error', 'شناسه در URL موجود نیست. نمونه: ?id=m001 یا ?id=403270991');
     return;
   }
 
   fetch('./members.json', { cache: 'no-store' })
-    .then(function (resp) {
-      if (!resp.ok) throw new Error('Network response was not ok: ' + resp.status);
+    .then(function(resp){
+      if (!resp.ok) throw new Error('Network response not ok: ' + resp.status);
       var ct = resp.headers.get('content-type') || '';
-      if (ct.indexOf('application/json') === -1) console.warn('Expected JSON content-type, got:', ct);
+      if (ct.indexOf('application/json') === -1) console.warn('members.json content-type:', ct);
       return resp.json();
     })
-    .then(function (data) {
-      if (!Array.isArray(data)) throw new Error('members.json باید یک آرایه باشد');
-      // ایجاد نقشه‌های سریع برای جستجو
-      var mapId = Object.create(null);
-      var mapStudent = Object.create(null);
-      for (var i = 0; i < data.length; i++) {
+    .then(function(data){
+      if (!Array.isArray(data)) throw new Error('members.json باید آرایه باشد');
+      // build quick lookup maps
+      var byId = Object.create(null);
+      var byStudent = Object.create(null);
+      for (var i = 0; i < data.length; i++){
         var it = data[i];
         if (!it) continue;
-        if (it.id) mapId[normalize(it.id).toLowerCase()] = it;
-        if (it.student_id) mapStudent[normalize(it.student_id).toLowerCase()] = it;
+        if (it.id) byId[normalize(it.id).toLowerCase()] = it;
+        if (it.student_id) byStudent[normalize(it.student_id).toLowerCase()] = it;
       }
 
-      var q = normalize(memberId).toLowerCase();
-      var found = mapId[q] || mapStudent[q];
+      var key = normalize(qid).toLowerCase();
+      var found = byId[key] || byStudent[key];
 
-      if (!found) {
-        for (var j = 0; j < data.length; j++) {
+      if (!found){
+        for (var j = 0; j < data.length; j++){
           var cand = data[j];
           if (!cand) continue;
-          if (idMatches(cand.student_id, memberId) || idMatches(cand.id, memberId)) {
+          if (matches(cand.id, qid) || matches(cand.student_id, qid)){
             found = cand;
             break;
           }
@@ -126,20 +120,18 @@
       }
 
       show('loading', false);
-      if (found) {
+      if (found){
         renderMember(found);
         show('card', true);
-        show('error', false);
       } else {
         show('error', true);
-        safeSetText('error', 'عضویی با این شناسه یافت نشد: ' + memberId);
-        console.warn('No matching member for id:', memberId);
+        safeText('error', 'عضویی با این شناسه یافت نشد: ' + qid);
       }
     })
-    .catch(function (err) {
+    .catch(function(err){
       console.error('Failed to load members.json:', err && err.message ? err.message : err);
       show('loading', false);
       show('error', true);
-      safeSetText('error', 'بارگذاری داده‌ها با خطا مواجه شد.');
+      safeText('error', 'بارگذاری اطلاعات با خطا مواجه شد.');
     });
 })();
