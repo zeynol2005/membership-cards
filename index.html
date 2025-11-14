@@ -10,148 +10,47 @@
   <link href="https://cdn.fontcdn.ir/Font/Persian/Estedad/Estedad.css" rel="stylesheet" type="text/css" />
 
   <style>
-    :root {
-      font-family: Vazir, sans-serif;
-      color: #e0e0ff;
-      background: #0d0d1a;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
+	@import url('https://cdn.fontcdn.ir/Font/Persian/Estedad/Estedad.css');
 
-		/* نور نئونی چرخان پشت کارت با رنگ‌های متغیر */
+	:root {
+	  font-family: 'Estedad', sans-serif;
+	  color: #e0e0ff;
+	  background: #0d0d1a;
+	}
+	html, body {
+	  height: 100%;
+	  margin: 0;
+	}
+	body {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  padding: 20px;
+	  position: relative;
+	  overflow: hidden;
+	}
+
+	/* نور نئونی چرخان پشت کارت */
 	.neon-glow {
 	  position: absolute;
 	  width: 400px;
 	  height: 400px;
-	  border-radius: 50%;
-	  background: conic-gradient(
-		from 0deg,
-		#00f0ff,   /* فیروزه‌ای */
-		#00ff88,   /* سبز نئونی */
-		#a020f0,   /* بنفش */
-		#00f0ff
-	  );
+	  background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
 	  animation: rotateGlow 6s linear infinite;
+	  border-radius: 50%;
 	  z-index: 0;
 	  filter: blur(60px);
 	}
-
 	@keyframes rotateGlow {
-	  0%   { transform: rotate(0deg); }
+	  0% { transform: rotate(0deg); }
 	  100% { transform: rotate(360deg); }
 	}
 
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 720px;
-      background: #1a1a2e;
-      border-radius: 16px;
-      box-shadow: 0 0 30px #00f0ff;
-      padding: 24px;
-      box-sizing: border-box;
-      direction: rtl;
-    }
-
-    .org-title {
-      font-weight: 900;
-      text-align: center;
-      margin: 0 0 20px 0;
-      font-size: 20px;
-      color: #00f0ff;
-      text-shadow: 0 0 8px #00f0ff;
-    }
-
-    #loading, #error {
-      text-align: center;
-      font-weight: 600;
-      padding: 12px 0;
-      font-size: 16px;
-    }
-    #loading { color: #00f0ff; }
-    #error { color: #ff4f4f; display: none; }
-
-    #card { display: none; }
-
-    h2#name {
-      margin: 0 0 12px 0;
-      font-size: 22px;
-      text-align: center;
-      font-weight: bold;
-      color: #ffffff;
-      text-shadow: 0 0 6px #00f0ff;
-    }
-
-    .row {
-      margin: 10px 0;
-      color: #e0e0ff;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .label {
-      font-weight: bold;
-      color: #00f0ff;
-      white-space: nowrap;
-    }
-
-    .value {
-      flex: 1;
-      text-align: right;
-      word-break: break-word;
-    }
-
-    ul {
-      margin: 6px 0 0 0;
-      padding-right: 18px;
-      list-style-type: square;
-      color: #e0e0ff;
-    }
-
-    ul li {
-      margin: 6px 0;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    ul.empty {
-      color: #888;
-      font-style: italic;
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .debug {
-      font-size: 12px;
-      color: #666;
-      margin-top: 8px;
-    }
-
-    @media (max-width: 420px) {
-      .wrap { padding: 16px; }
-      .org-title { font-size: 18px; }
-      h2#name { font-size: 20px; }
-      .label { font-size: 14px; }
-	  
-		  .card-banner {
-		  
-	 position: absolute;
-	  top: 40px;
+	/* عنوان خارج از کارت */
+	.card-banner {
+	  position: relative;
+	  top: 0;
 	  width: 100%;
 	  text-align: center;
 	  font-family: 'Estedad', sans-serif;
@@ -161,51 +60,160 @@
 	  text-shadow: 0 0 12px #00f0ff;
 	  z-index: 2;
 	  pointer-events: none;
+	  margin-bottom: 20px;
 	}
 
-    }
+	.wrap {
+	  position: relative;
+	  z-index: 1;
+	  width: 100%;
+	  max-width: 720px;
+	  background: #1a1a2e;
+	  border-radius: 16px;
+	  box-shadow: 0 0 30px #00f0ff;
+	  padding: 24px;
+	  box-sizing: border-box;
+	  direction: rtl;
+	}
+
+	.org-title {
+	  font-weight: 900;
+	  text-align: center;
+	  margin: 0 0 20px 0;
+	  font-size: 20px;
+	  color: #00f0ff;
+	  text-shadow: 0 0 8px #00f0ff;
+	}
+
+	#loading, #error {
+	  text-align: center;
+	  font-weight: 600;
+	  padding: 12px 0;
+	  font-size: 16px;
+	}
+	#loading { color: #00f0ff; }
+	#error { color: #ff4f4f; display: none; }
+
+	#card { display: none; }
+
+	h2#name {
+	  margin: 0 0 12px 0;
+	  font-size: 22px;
+	  text-align: center;
+	  font-weight: bold;
+	  color: #ffffff;
+	  text-shadow: 0 0 6px #00f0ff;
+	}
+
+	.row {
+	  margin: 10px 0;
+	  color: #e0e0ff;
+	  display: flex;
+	  justify-content: space-between;
+	  gap: 12px;
+	  align-items: flex-start;
+	}
+
+	.label {
+	  font-weight: bold;
+	  color: #00f0ff;
+	  white-space: nowrap;
+	}
+
+	.value {
+	  flex: 1;
+	  text-align: right;
+	  word-break: break-word;
+	}
+
+	ul {
+	  margin: 6px 0 0 0;
+	  padding-right: 18px;
+	  list-style-type: square;
+	  color: #e0e0ff;
+	}
+
+	ul li {
+	  margin: 6px 0;
+	  line-height: 1.5;
+	  word-break: break-word;
+	}
+
+	ul.empty {
+	  color: #888;
+	  font-style: italic;
+	  list-style-type: none;
+	  padding: 0;
+	  margin: 0;
+	}
+
+	.debug {
+	  font-size: 12px;
+	  color: #666;
+	  margin-top: 8px;
+	}
+
+	@media (max-width: 420px) {
+	  .wrap { padding: 16px; }
+	  .org-title { font-size: 18px; }
+	  h2#name { font-size: 20px; }
+	  .label { font-size: 14px; }
+	}
+
   </style>
 </head>
 
 <body>
+  <!-- نور نئونی پشت کارت -->
   <div class="neon-glow"></div>
+
+  <!-- عنوان خارج از کارت -->
   <div class="card-banner">انجمن علمی کامپیوتر دانشگاه آزاد بوشهر</div>
+
+  <!-- کارت اصلی -->
   <div class="wrap" role="main" aria-labelledby="org">
     <!-- عنوان بولد بالا -->
-    
 
     <div id="loading">در حال بارگذاری اطلاعات...</div>
     <div id="error" role="status" aria-live="polite">عضو یافت نشد یا بارگذاری ناموفق بود.</div>
 
-    <div class="row"><div class="label">نام و نام خانوادگی :</div><div id="full_name" class="value"></div></div>
-      <div class="row"><div class="label">شماره دانشجویی :</div><div id="student_id" class="value"></div></div>
-		<div class="row">
-		  <div class="label">رشته تحصیلی :</div>
-		  <div id="study" class="value"></div>
-		</div>
+    <div class="row">
+      <div class="label">نام و نام خانوادگی :</div>
+      <div id="full_name" class="value"></div>
+    </div>
 
+    <div class="row">
+      <div class="label">شماره دانشجویی :</div>
+      <div id="student_id" class="value"></div>
+    </div>
 
-	  <div class="row">
-        <div class="label">سمت در انجمن :</div>
-        <div class="value"><ul id="role_list"></ul></div>
-      </div>
-	  
-      <div class="row">
-        <div class="label">کمیته‌های عضو شده :</div>
-        <div class="value"><ul id="committees_list"></ul></div>
-      </div>
+    <div class="row">
+      <div class="label">رشته تحصیلی :</div>
+      <div id="study" class="value"></div>
+    </div>
 
-      <div class="row">
-        <div class="label">فعالیت‌ها :</div>
-        <div class="value"><ul id="activities_list"></ul></div>
-      </div>
+    <div class="row">
+      <div class="label">سمت در انجمن :</div>
+      <div class="value"><ul id="role_list"></ul></div>
+    </div>
 
-      <div class="row">
-        <div class="label">مدارک کسب کرده :</div>
-        <div class="value"><ul id="certificates_list"></ul></div>
-      </div>
+    <div class="row">
+      <div class="label">کمیته‌های عضو شده :</div>
+      <div class="value"><ul id="committees_list"></ul></div>
+    </div>
+
+    <div class="row">
+      <div class="label">فعالیت‌ها :</div>
+      <div class="value"><ul id="activities_list"></ul></div>
+    </div>
+
+    <div class="row">
+      <div class="label">مدارک کسب کرده :</div>
+      <div class="value"><ul id="certificates_list"></ul></div>
+    </div>
   </div>
 
   <script src="app.js"></script>
 </body>
+
 </html>
