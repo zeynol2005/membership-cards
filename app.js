@@ -130,7 +130,7 @@
         // Fill fields (support multiple possible field names)
         setText('name', found.full_name || found.name || '');
         setText('full_name', found.full_name || found.name || '');
-		setText('study_name', found.study_name || found.study || '');
+		setText('study_name', found.study_name || found.studyName || '');
         setText('student_id', found.student_id || found.studentId || found.std || '');
         setText('member_id', found.id || '');
 
