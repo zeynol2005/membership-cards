@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پروفایل عضو : <div id="full_name" class="value"></div></title>
+    <title>پروفایل عضو :</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
 	<script src="app.js"></script>
@@ -88,6 +88,11 @@
             font-family: var(--font-mono);
             color: var(--color-accent);
         }
+		.value {
+		    flex: 1;
+		    text-align: right;
+		    word-break: break-word;
+		}
 
     </style>
 </head>
@@ -95,11 +100,11 @@
 
     <header class="absolute top-0 left-0 right-0 p-6">
         <div class="flex justify-center items-center gap-8">
-            <img src="logo_anjoman.png" alt="لوگو انجمن" class="w-16 h-16 object-contain white-logo"
+            <img src="csa_logo.png" alt="لوگو انجمن" class="w-16 h-16 object-contain white-logo"
                  onerror="this.src='https://placehold.co/80x80/000000/a3e635?text=A';">
-            <img src="logo_daneshgah.png" alt="لوگو دانشگاه" class="w-16 h-16 object-contain white-logo"
+            <img src="azadbu_logo.png" alt="لوگو دانشگاه" class="w-16 h-16 object-contain white-logo"
                  onerror="this.src='https://placehold.co/80x80/000000/a3e635?text=U';">
-            <img src="logo_bashgah.png" alt="لوگو باشگاه" class="w-16 h-16 object-contain white-logo"
+            <img src="bashgah_logo" alt="لوگو باشگاه" class="w-16 h-16 object-contain white-logo"
                  onerror="this.src='https://placehold.co/80x80/000000/a3e635?text=C';">
         </div>
     </header>
