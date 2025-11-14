@@ -61,7 +61,7 @@
 
   // Check required DOM ids and warn if missing
   var required = [
-    'loading', 'error', 'card', 'name', 'full_name', 'student_id', 'study_name',
+    'loading', 'error', 'card', 'name', 'full_name', 'student_id', 'study',
     'member_id', 'role_list', 'committees_list', 'activities_list', 'certificates_list', 'debugInfo'
   ];
   required.forEach(function (id) { if (!exists(id)) console.warn('Expected element not found in DOM:', id); });
@@ -130,7 +130,7 @@
         // Fill fields (support multiple possible field names)
         setText('name', found.full_name || found.name || '');
         setText('full_name', found.full_name || found.name || '');
-		setText('study_name', found.study_name || found.studyName || '');
+		setText('study', found.study || found.study_name || '');
         setText('student_id', found.student_id || found.studentId || found.std || '');
         setText('member_id', found.id || '');
 
