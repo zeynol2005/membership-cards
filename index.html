@@ -1,279 +1,157 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>کارت عضویت — انجمن علمی کامپیوتر واحد بوشهر</title>
-  <!-- فونت وزیر -->
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" type="text/css" />
-  <!-- فونت استعداد-->
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Estedad/Estedad.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل عضو : <div id="full_name" class="value"></div></title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            --font-mono: 'IBM Plex Mono', 'Vazirmatn', monospace;
+            --color-accent: #a3e635; 
+            overflow: hidden; 
+        }
 
-  <style>
-	@import url('https://cdn.fontcdn.ir/Font/Persian/Estedad/Estedad.css');
+        .font-mono {
+            font-family: var(--font-mono);
+        }
 
-	:root {
-	  font-family: 'Estedad', sans-serif;
-	  color: #e0e0ff;
-	  background: #0d0d1a;
-	}
-	html, body {
-	  height: 100%;
-	  margin: 0;
-	}
-	body {
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  justify-content: center;
-	  padding: 20px;
-	  position: relative;
-	  overflow: hidden;
-	}
+        .white-logo {
+            filter: brightness(0) invert(1); 
+            opacity: 0.7;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .white-logo:hover {
+            opacity: 1;
+        }
 
-	/* نور نئونی چرخان پشت کارت */
-	.neon-glow {
-	  position: absolute;
-	  width: 400px;
-	  height: 400px;
-	  background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
-	  animation: rotateGlow 6s linear infinite;
-	  border-radius: 50%;
-	  z-index: 0;
-	  filter: blur(60px);
-	}
-	@keyframes rotateGlow {
-	  0% { transform: rotate(0deg); }
-	  100% { transform: rotate(360deg); }
-	}
+        .kinetic-text {
+            font-weight: 900; 
+            font-size: clamp(3rem, 15vw, 10rem); 
+            line-height: 1.1;
+            letter-spacing: -0.05em; 
+            transition: transform 0.1s ease-out;
+            color: #1a1a1a; 
+            -webkit-text-stroke: 1px white; 
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+        
+        .highlight-box {
+            background-color: var(--color-accent);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            display: inline-block; 
+            font-weight: 600;
+        }
 
-	/* عنوان خارج از کارت */
-	.card-banner {
-	  position: relative;
-	  top: 0;
-	  width: 100%;
-	  text-align: center;
-	  font-family: 'Estedad', sans-serif;
-	  font-weight: 900;
-	  font-size: 30px;
-	  color: #ffffff;
-	  text-shadow: 0 0 12px #00f0ff;
-	  z-index: 2;
-	  pointer-events: none;
-	  margin-bottom: 20px;
-	}
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-item {
+            background-color: #111;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #222;
+        }
+        .info-label {
+            font-family: var(--font-mono);
+            color: #888;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #eee;
+        }
+        .info-value.list li {
+            position: relative;
+            padding-right: 20px;
+        }
+        .info-value.list li::before {
+            content: '>';
+            position: absolute;
+            right: 0;
+            font-family: var(--font-mono);
+            color: var(--color-accent);
+        }
 
-	.wrap {
-	  position: relative;
-	  z-index: 1;
-	  width: 100%;
-	  max-width: 720px;
-	  background: #1a1a2e;
-	  border-radius: 16px;
-	  box-shadow: 0 0 30px #00f0ff;
-	  padding: 24px;
-	  box-sizing: border-box;
-	  direction: rtl;
-	}
-
-	.org-title {
-	  font-weight: 900;
-	  text-align: center;
-	  margin: 0 0 20px 0;
-	  font-size: 20px;
-	  color: #00f0ff;
-	  text-shadow: 0 0 8px #00f0ff;
-	}
-
-	#loading, #error {
-	  text-align: center;
-	  font-weight: 600;
-	  padding: 12px 0;
-	  font-size: 16px;
-	}
-	#loading { color: #00f0ff; }
-	#error { color: #ff4f4f; display: none; }
-
-	#card { display: none; }
-
-	h2#name {
-	  margin: 0 0 12px 0;
-	  font-size: 22px;
-	  text-align: center;
-	  font-weight: bold;
-	  color: #ffffff;
-	  text-shadow: 0 0 6px #00f0ff;
-	}
-
-	.row {
-	  margin: 10px 0;
-	  color: #e0e0ff;
-	  display: flex;
-	  justify-content: space-between;
-	  gap: 12px;
-	  align-items: flex-start;
-	}
-
-	.label {
-	  font-weight: bold;
-	  color: #ffffff;
-	  text-shadow: 0 0 8px #00f0ff;
-	  white-space: nowrap;
-	}
-
-	.value {
-	  flex: 1;
-	  text-align: right;
-	  word-break: break-word;
-	}
-
-	ul {
-	  margin: 6px 0 0 0;
-	  padding-right: 18px;
-	  list-style-type: square;
-	  color: #e0e0ff;
-	}
-
-	ul li {
-	  margin: 6px 0;
-	  line-height: 1.5;
-	  word-break: break-word;
-	}
-
-	ul.empty {
-	  color: #888;
-	  font-style: italic;
-	  list-style-type: none;
-	  padding: 0;
-	  margin: 0;
-	}
-
-	.debug {
-	  font-size: 12px;
-	  color: #666;
-	  margin-top: 8px;
-	}
-
-	@media (max-width: 420px) {
-	  .wrap { padding: 16px; }
-	  .org-title { font-size: 18px; }
-	  h2#name { font-size: 20px; }
-	  .label { font-size: 14px; }
-	}
-	
-		/* نور نئونی حاشیه‌ای چرخشی */
-	.neon-border {
-	  position: fixed;
-	  top: -100px;
-	  left: -100px;
-	  width: calc(100% + 200px);
-	  height: calc(100% + 200px);
-	  pointer-events: none;
-	  z-index: 0;
-	  background: conic-gradient(
-		from 0deg,
-		#00f0ff,
-		#00ff88,
-		#a020f0,
-		#66ccff,
-		#00f0ff
-	  );
-	  animation: rotateBorder 12s linear infinite;
-	  filter: blur(120px);
-	  opacity: 0.3;
-	  border-radius: 50%;
-	}
-
-	@keyframes rotateBorder {
-	  0%   { transform: rotate(0deg); }
-	  100% { transform: rotate(360deg); }
-	}
-	
-	.logos {
-	  position: fixed;       /* قفل روی صفحه نمایشگر */
-	  bottom: 2vh;           /* فاصله از پایین بر اساس ارتفاع صفحه */
-	  right: 2vw;            /* فاصله از راست بر اساس عرض صفحه */
-	  display: flex;
-	  flex-direction: column; /* لوگوها زیر هم قرار بگیرن */
-	  gap: 2vh;              /* فاصله بین لوگوها */
-	  z-index: 9999;         /* همیشه روی همه عناصر باشه */
-	}
-
-	.logo {
-	  width: 8vw;            /* اندازه لوگو بر اساس عرض صفحه */
-	  max-width: 100px;      /* حداکثر اندازه برای جلوگیری از بزرگ شدن بیش از حد */
-	  height: auto;
-	  cursor: pointer;
-	}
-
-	.neon-logo {
-	  filter: drop-shadow(0 0 6px #00f0ff)
-			  drop-shadow(0 0 12px #00ffcc);
-	  transition: transform 0.3s ease, filter 0.3s ease;
-	}
-
-  </style>
+    </style>
 </head>
+<body class="flex flex-col min-h-screen justify-center items-center p-6">
 
-<body>
-  <!-- نور نئونی پشت کارت -->
-  <div class="neon-glow"></div>
-  <!-- نور نئونی دور صفحه -->
-  <div class="neon-border"></div>
+    <header class="absolute top-0 left-0 right-0 p-6">
+        <div class="flex justify-center items-center gap-8">
+            <img src="logo_anjoman.png" alt="لوگو انجمن" class="w-16 h-16 object-contain white-logo"
+                 onerror="this.src='https://placehold.co/80x80/000000/a3e635?text=A';">
+            <img src="logo_daneshgah.png" alt="لوگو دانشگاه" class="w-16 h-16 object-contain white-logo"
+                 onerror="this.src='https://placehold.co/80x80/000000/a3e635?text=U';">
+            <img src="logo_bashgah.png" alt="لوگو باشگاه" class="w-16 h-16 object-contain white-logo"
+                 onerror="this.src='https://placehold.co/80x80/000000/a3e635?text=C';">
+        </div>
+    </header>
 
-  <!-- عنوان خارج از کارت -->
-  <div class="card-banner">انجمن علمی کامپیوتر دانشگاه آزاد بوشهر</div>
+    <main class="w-full max-w-5xl text-center flex flex-col items-center z-10">
 
-  <!-- کارت اصلی -->
-  <div class="wrap" role="main" aria-labelledby="org">
-    <!-- عنوان بولد بالا -->
+        <h1 id="kinetic-name" class="kinetic-text text-center">
+            <div id="full_name" class="value"></div>
+        </h1>
+        
+        <div class="my-6">
+            <span class="text-2xl font-mono highlight-box"><div id="student_id" class="value"></div></span>
+            <span class="text-2xl text-gray-400 font-light mx-2">/</span>
+            <span class="text-2xl font-medium text-gray-200"><div class="value"><ul id="role_list"></ul></div></span>
+        </div>
 
-    <div id="loading">در حال بارگذاری اطلاعات...</div>
-    <div id="error" role="status" aria-live="polite">عضو یافت نشد یا بارگذاری ناموفق بود.</div>
+        <div class="info-grid w-full text-right mt-4">
+            
+            <div class="info-item">
+                <span class="info-label">رشته تحصیلی</span>
+                <span class="info-value"><div id="study" class="value"></div></span>
+            </div>
+            
+            <div class="info-item">
+                <span class="info-label">فعالیت ها</span>
+                <span class="info-value"><div class="value"><ul id="activities_list"></ul></div></span>
+            </div>
 
-    <div class="row">
-      <div class="label">نام و نام خانوادگی :</div>
-      <div id="full_name" class="value"></div>
-    </div>
+            <div class="info-item">
+                <span class="info-label">مدارک</span>
+                <span class="info-value"><div class="value"><ul id="certificates_list"></ul></div></span>
+            </div>
 
-    <div class="row">
-      <div class="label">شماره دانشجویی :</div>
-      <div id="student_id" class="value"></div>
-    </div>
+            <div class="info-item md:col-span-3">
+                <span class="info-label">کمیته‌های عضو شده</span>
+                <div class="value"><ul id="committees_list"></ul></div>
+            </div>
+        </div>
 
-    <div class="row">
-      <div class="label">رشته تحصیلی :</div>
-      <div id="study" class="value"></div>
-    </div>
+    </main>
+    
+    <script>
+        const nameElement = document.getElementById('kinetic-name');
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 768) return; 
+            
+            const { clientX, clientY } = e;
+            const x = (window.innerWidth / 2 - clientX) / 50; 
+            const y = (window.innerHeight / 2 - clientY) / 50;
 
-    <div class="row">
-      <div class="label">سمت در انجمن :</div>
-      <div class="value"><ul id="role_list"></ul></div>
-    </div>
+            nameElement.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
 
-    <div class="row">
-      <div class="label">کمیته‌های عضو شده :</div>
-      <div class="value"><ul id="committees_list"></ul></div>
-    </div>
-
-    <div class="row">
-      <div class="label">فعالیت‌ها :</div>
-      <div class="value"><ul id="activities_list"></ul></div>
-    </div>
-
-    <div class="row">
-      <div class="label">مدارک کسب کرده :</div>
-      <div class="value"><ul id="certificates_list"></ul></div>
-    </div>
-  </div>
-	
-	<!-- لوگوها -->
-  <div class="logos">
-    <img src="csa_logo.png" alt="CSA Logo" class="logo neon-logo">
-    <img src="azadbu_logo.png" alt="Azad BU Logo" class="logo neon-logo">
-  </div>
-  
-  <script src="app.js"></script>
 </body>
-
 </html>
