@@ -10,30 +10,25 @@
   <link href="https://cdn.fontcdn.ir/Font/Persian/Estedad/Estedad.css" rel="stylesheet" type="text/css" />
 
   <style>
-		/* فونت استعداد */
-	@import url('https://cdn.fontcdn.ir/Font/Persian/Estedad/Estedad.css');
+    :root {
+      font-family: Vazir, sans-serif;
+      color: #e0e0ff;
+      background: #0d0d1a;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
 
-	:root {
-	  font-family: 'Estedad', sans-serif;
-	  background: #0d0d1a;
-	  color: #e0e0ff;
-	}
-
-	html, body {
-	  height: 100%;
-	  margin: 0;
-	}
-
-	body {
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  padding: 20px;
-	  position: relative;
-	  overflow: hidden;
-	}
-
-	/* نور نئونی پشت کارت با رنگ‌های متغیر */
+		/* نور نئونی پشت کارت */
 	.neon-glow {
 	  position: absolute;
 	  width: 420px;
@@ -41,9 +36,9 @@
 	  border-radius: 50%;
 	  background: conic-gradient(
 		from 0deg,
-		#00f0ff,
-		#00ff88,
-		#a020f0,
+		#00f0ff,   /* فیروزه‌ای */
+		#00ff88,   /* سبز نئونی */
+		#a020f0,   /* بنفش */
 		#00f0ff
 	  );
 	  animation: rotateGlow 8s linear infinite;
@@ -52,113 +47,122 @@
 	}
 
 	@keyframes rotateGlow {
-	  0% { transform: rotate(0deg); }
+	  0%   { transform: rotate(0deg); }
 	  100% { transform: rotate(360deg); }
 	}
 
-	/* کارت اصلی */
-	.wrap {
-	  position: relative;
-	  z-index: 1;
-	  width: 100%;
-	  max-width: 720px;
-	  background: #1a1a2e;
-	  border-radius: 16px;
-	  box-shadow: 0 0 30px #00f0ff;
-	  padding: 24px;
-	  box-sizing: border-box;
-	  direction: rtl;
-	  font-family: 'Estedad', sans-serif;
-	}
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 720px;
+      background: #1a1a2e;
+      border-radius: 16px;
+      box-shadow: 0 0 30px #00f0ff;
+      padding: 24px;
+      box-sizing: border-box;
+      direction: rtl;
+    }
 
-	/* عنوان بالای کارت */
-	.org-title {
-	  font-weight: 900;
+    .org-title {
+      font-weight: 900;
+      text-align: center;
+      margin: 0 0 20px 0;
+      font-size: 20px;
+      color: #00f0ff;
+      text-shadow: 0 0 8px #00f0ff;
+    }
+
+    #loading, #error {
+      text-align: center;
+      font-weight: 600;
+      padding: 12px 0;
+      font-size: 16px;
+    }
+    #loading { color: #00f0ff; }
+    #error { color: #ff4f4f; display: none; }
+
+    #card { display: none; }
+
+    h2#name {
+      margin: 0 0 12px 0;
+      font-size: 22px;
+      text-align: center;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 0 6px #00f0ff;
+    }
+
+    .row {
+      margin: 10px 0;
+      color: #e0e0ff;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #00f0ff;
+      white-space: nowrap;
+    }
+
+    .value {
+      flex: 1;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    ul {
+      margin: 6px 0 0 0;
+      padding-right: 18px;
+      list-style-type: square;
+      color: #e0e0ff;
+    }
+
+    ul li {
+      margin: 6px 0;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    ul.empty {
+      color: #888;
+      font-style: italic;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .debug {
+      font-size: 12px;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 420px) {
+      .wrap { padding: 16px; }
+      .org-title { font-size: 18px; }
+      h2#name { font-size: 20px; }
+      .label { font-size: 14px; }
+	  
+		  .card-banner {
+		  
+	 position: absolute;
+	  top: 40px;
+	  width: 100%;
 	  text-align: center;
-	  margin: 0 0 20px 0;
-	  font-size: 22px;
+	  font-family: 'Estedad', sans-serif;
+	  font-weight: 900;
+	  font-size: 24px;
 	  color: #00f0ff;
 	  text-shadow: 0 0 12px #00f0ff;
+	  z-index: 2;
+	  pointer-events: none;
 	}
 
-	/* وضعیت بارگذاری و خطا */
-	#loading, #error {
-	  text-align: center;
-	  font-weight: 600;
-	  padding: 12px 0;
-	  font-size: 16px;
-	}
-	#loading { color: #00f0ff; }
-	#error { color: #ff4f4f; display: none; }
-
-	#card { display: none; }
-
-	/* نام عضو */
-	h2#name {
-	  margin: 0 0 12px 0;
-	  font-size: 22px;
-	  text-align: center;
-	  font-weight: bold;
-	  color: #ffffff;
-	  text-shadow: 0 0 8px #00f0ff;
-	}
-
-	/* ردیف‌ها */
-	.row {
-	  margin: 10px 0;
-	  color: #e0e0ff;
-	  display: flex;
-	  justify-content: space-between;
-	  gap: 12px;
-	  align-items: flex-start;
-	}
-
-	.label {
-	  font-weight: bold;
-	  color: #00f0ff;
-	  white-space: nowrap;
-	}
-
-	.value {
-	  flex: 1;
-	  text-align: right;
-	  word-break: break-word;
-	}
-
-	/* لیست‌ها */
-	ul {
-	  margin: 6px 0 0 0;
-	  padding-right: 18px;
-	  list-style-type: square;
-	  color: #e0e0ff;
-	}
-	ul li {
-	  margin: 6px 0;
-	  line-height: 1.5;
-	  word-break: break-word;
-	}
-	ul.empty {
-	  color: #888;
-	  font-style: italic;
-	  list-style-type: none;
-	  padding: 0;
-	  margin: 0;
-	}
-
-	/* دیباگ */
-	.debug {
-	  font-size: 12px;
-	  color: #666;
-	  margin-top: 8px;
-	}
-
-	@media (max-width: 420px) {
-	  .wrap { padding: 16px; }
-	  .org-title { font-size: 18px; }
-	  h2#name { font-size: 20px; }
-	  .label { font-size: 14px; }
-	}
-
+    }
   </style>
 </head>
 
