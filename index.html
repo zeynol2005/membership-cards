@@ -188,7 +188,29 @@
 	  0%   { transform: rotate(0deg); }
 	  100% { transform: rotate(360deg); }
 	}
+	
+		.logos {
+	  position: fixed;
+	  bottom: 20px;   /* فاصله از پایین */
+	  right: 20px;    /* فاصله از راست */
+	  display: flex;
+	  flex-direction: column; /* لوگوها زیر هم قرار بگیرن */
+	  gap: 12px;      /* فاصله بین لوگوها */
+	  z-index: 999;   /* همیشه روی بقیه عناصر باشه */
+	}
 
+	.logo {
+	  width: 70px;    /* اندازه لوگو */
+	  height: auto;
+	  cursor: pointer;
+	}
+
+	/* افکت نئونی ملایم */
+	.neon-logo {
+	  filter: drop-shadow(0 0 6px #00f0ff)
+			  drop-shadow(0 0 12px #00ffcc);
+	  transition: transform 0.3s ease, filter 0.3s ease;
+	}
   </style>
 </head>
 
@@ -243,7 +265,13 @@
       <div class="value"><ul id="certificates_list"></ul></div>
     </div>
   </div>
-
+	
+	<!-- لوگوها -->
+  <div class="logos">
+    <img src="csa_logo.png" alt="CSA Logo" class="logo neon-logo">
+    <img src="azadbu_logo.png" alt="Azad BU Logo" class="logo neon-logo">
+  </div>
+  
   <script src="app.js"></script>
 </body>
 
