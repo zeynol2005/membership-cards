@@ -28,28 +28,21 @@
       overflow: hidden;
     }
 
-		/* نور نئونی پشت کارت */
-	.neon-glow {
-	  position: absolute;
-	  width: 420px;
-	  height: 420px;
-	  border-radius: 50%;
-	  background: conic-gradient(
-		from 0deg,
-		#00f0ff,   /* فیروزه‌ای */
-		#00ff88,   /* سبز نئونی */
-		#a020f0,   /* بنفش */
-		#00f0ff
-	  );
-	  animation: rotateGlow 8s linear infinite;
-	  filter: blur(80px);
-	  z-index: 0;
-	}
-
-	@keyframes rotateGlow {
-	  0%   { transform: rotate(0deg); }
-	  100% { transform: rotate(360deg); }
-	}
+    /* نور نئونی چرخان پشت کارت */
+    .neon-glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
+      animation: rotateGlow 6s linear infinite;
+      border-radius: 50%;
+      z-index: 0;
+      filter: blur(60px);
+    }
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
     .wrap {
       position: relative;
