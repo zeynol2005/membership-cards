@@ -159,6 +159,34 @@
 	  h2#name { font-size: 20px; }
 	  .label { font-size: 14px; }
 	}
+	
+		/* نور نئونی حاشیه‌ای چرخشی */
+	.neon-border {
+	  position: fixed;
+	  top: -100px;
+	  left: -100px;
+	  width: calc(100% + 200px);
+	  height: calc(100% + 200px);
+	  pointer-events: none;
+	  z-index: 0;
+	  background: conic-gradient(
+		from 0deg,
+		#00f0ff,
+		#00ff88,
+		#a020f0,
+		#66ccff,
+		#00f0ff
+	  );
+	  animation: rotateBorder 12s linear infinite;
+	  filter: blur(120px);
+	  opacity: 0.3;
+	  border-radius: 50%;
+	}
+
+	@keyframes rotateBorder {
+	  0%   { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
+	}
 
   </style>
 </head>
@@ -166,6 +194,8 @@
 <body>
   <!-- نور نئونی پشت کارت -->
   <div class="neon-glow"></div>
+  <!-- نور نئونی دور صفحه -->
+  <div class="neon-border"></div>
 
   <!-- عنوان خارج از کارت -->
   <div class="card-banner">انجمن علمی کامپیوتر دانشگاه آزاد بوشهر</div>
