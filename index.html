@@ -189,28 +189,28 @@
 	  100% { transform: rotate(360deg); }
 	}
 	
-		.logos {
+			.logos {
 	  position: fixed;
-	  bottom: 20px;   /* فاصله از پایین */
-	  right: 20px;    /* فاصله از راست */
+	  bottom: 2vh;
+	  right: 2vw;
 	  display: flex;
-	  flex-direction: column; /* لوگوها زیر هم قرار بگیرن */
-	  gap: 12px;      /* فاصله بین لوگوها */
-	  z-index: 999;   /* همیشه روی بقیه عناصر باشه */
+	  flex-direction: column;
+	  gap: 1vh;
+	  z-index: 9999;
 	}
 
 	.logo {
-	  width: 70px;    /* اندازه لوگو */
+	  width: 6vw;
 	  height: auto;
 	  cursor: pointer;
 	}
 
-	/* افکت نئونی ملایم */
 	.neon-logo {
 	  filter: drop-shadow(0 0 6px #00f0ff)
 			  drop-shadow(0 0 12px #00ffcc);
 	  transition: transform 0.3s ease, filter 0.3s ease;
 	}
+
   </style>
 </head>
 
