@@ -189,18 +189,19 @@
 	  100% { transform: rotate(360deg); }
 	}
 	
-			.logos {
-	  position: fixed;
-	  bottom: 2vh;
-	  right: 2vw;
+	.logos {
+	  position: fixed;       /* قفل روی صفحه نمایشگر */
+	  bottom: 2vh;           /* فاصله از پایین بر اساس ارتفاع صفحه */
+	  right: 2vw;            /* فاصله از راست بر اساس عرض صفحه */
 	  display: flex;
-	  flex-direction: column;
-	  gap: 1vh;
-	  z-index: 9999;
+	  flex-direction: column; /* لوگوها زیر هم قرار بگیرن */
+	  gap: 2vh;              /* فاصله بین لوگوها */
+	  z-index: 9999;         /* همیشه روی همه عناصر باشه */
 	}
 
 	.logo {
-	  width: 6vw;
+	  width: 8vw;            /* اندازه لوگو بر اساس عرض صفحه */
+	  max-width: 100px;      /* حداکثر اندازه برای جلوگیری از بزرگ شدن بیش از حد */
 	  height: auto;
 	  cursor: pointer;
 	}
