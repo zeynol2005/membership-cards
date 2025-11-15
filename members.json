@@ -638,8 +638,20 @@
         "activities": [],
         "certificates": []
     },
-    {
+	{
         "id": "m054",
+        "student_id": "403642137",
+        "full_name": "معراج قاسمی",
+        "study": "روانشناسی",
+        "role": ["عضو عادی"],
+        "committees": [
+            "تولید محتوا"
+        ],
+        "activities": [],
+        "certificates": []
+    },
+    {
+        "id": "m055",
         "student_id": "402724346",
         "full_name": "علیرضا زیرراهی",
         "study": "مهندسی کامپیوتر",
