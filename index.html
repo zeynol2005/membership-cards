@@ -115,6 +115,7 @@
 	}
 
 	.label {
+	  font-size: 15px;
 	  font-weight: bold;
 	  color: #ffffff;
 	  text-shadow: 0 0 8px #00f0ff;
@@ -178,7 +179,7 @@
 		#66ccff,
 		#00f0ff
 	  );
-	  animation: rotateBorder 12s linear infinite;
+	  animation: rotateBorder 8s linear infinite;
 	  filter: blur(120px);
 	  opacity: 0.3;
 	  border-radius: 50%;
@@ -189,29 +190,37 @@
 	  100% { transform: rotate(360deg); }
 	}
 	
-	.logos {
-	  position: fixed;       /* قفل روی صفحه نمایشگر */
-	  bottom: 2vh;           /* فاصله از پایین بر اساس ارتفاع صفحه */
-	  right: 2vw;            /* فاصله از راست بر اساس عرض صفحه */
+	.header-logos {
 	  display: flex;
-	  flex-direction: column; /* لوگوها زیر هم قرار بگیرن */
-	  gap: 2vh;              /* فاصله بین لوگوها */
-	  z-index: 9999;         /* همیشه روی همه عناصر باشه */
+	  justify-content: center;   /* همه لوگوها وسط چین بشن */
+	  align-items: center;
+	  gap: 40px;                 /* فاصله بین لوگوها */
+	  margin-top: 20px;
 	}
 
 	.logo {
-	  width: 8vw;            /* اندازه لوگو بر اساس عرض صفحه */
-	  max-width: 100px;      /* حداکثر اندازه برای جلوگیری از بزرگ شدن بیش از حد */
-	  height: auto;
-	  cursor: pointer;
+	  width: 80px;               /* اندازه لوگو */
+	  height: auto;              /* حفظ نسبت طبیعی */
 	}
 
+	.center-logo {
+	  width: 100px;              /* لوگوی دانشگاه کمی بزرگ‌تر */
+	}
+
+	/* افکت نئونی */
 	.neon-logo {
 	  filter: drop-shadow(0 0 6px #00f0ff)
 			  drop-shadow(0 0 12px #00ffcc);
 	  transition: transform 0.3s ease, filter 0.3s ease;
 	}
 
+	.neon-logo:hover {
+	  transform: scale(1.1);
+	  filter: drop-shadow(0 0 10px #00f0ff)
+			  drop-shadow(0 0 20px #00ffcc);
+	}
+
+    
   </style>
 </head>
 
@@ -226,7 +235,6 @@
 
   <!-- کارت اصلی -->
   <div class="wrap" role="main" aria-labelledby="org">
-    <!-- عنوان بولد بالا -->
 
     <div id="loading">در حال بارگذاری اطلاعات...</div>
     <div id="error" role="status" aria-live="polite">عضو یافت نشد یا بارگذاری ناموفق بود.</div>
@@ -265,12 +273,14 @@
       <div class="label">مدارک کسب کرده :</div>
       <div class="value"><ul id="certificates_list"></ul></div>
     </div>
+	
   </div>
 	
 	<!-- لوگوها -->
-  <div class="logos">
-    <img src="csa_logo.png" alt="CSA Logo" class="logo neon-logo">
-    <img src="azadbu_logo.png" alt="Azad BU Logo" class="logo neon-logo">
+  <div class="header-logos">
+    <img src="bashgah_logo.PNG" alt="Club Logo" class="logo">
+    <img src="azadbu_logo.png" alt="University Logo" class="logo center-logo">
+    <img src="csa_logo.png" alt="Association Logo" class="logo">
   </div>
   
   <script src="app.js"></script>
